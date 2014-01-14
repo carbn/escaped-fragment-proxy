@@ -1,14 +1,17 @@
-# Server Execute Phantom
+# Escaped Fragment Proxy
 
 This renders pages according to the [AJAX crawl specification](https://developers.google.com/webmasters/ajax-crawling/).
+
+## Running under uwsgi
+virtualenv env
+env/bin/pip install -r requrements.txt
+env/bin/uwsgi --ini app.ini --http :8080
 
 ## Nginx Configuration
 
     location / {
             include uwsgi_params;
-            uwsgi_param HTTP_X_SE_ORIGINAL_URL $scheme://$host$request_uri;
             if ($args ~* _escaped_fragment_) {
-                    uwsgi_pass unix:/var/run/uwsgi-apps/server-execute-phantom.socket;
+                    uwsgi_pass unix:/tmp/ajax-proxy.socket;
             }
-            alias /var/www;
     }
