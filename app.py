@@ -11,7 +11,7 @@ app = Bottle()
 @app.route('/')
 def serve():
     parts = request.urlparts
-    new_url = parts.scheme + '://' + parts.netloc + ':8000' + parts.path
+    new_url = parts.scheme + '://' + parts.netloc + parts.path
     
     query  = cgi.parse_qs(parts.query)
     fragment = query.pop('_escaped_fragment_', None)
@@ -22,7 +22,8 @@ def serve():
     if fragment:
         new_url += '#!' + fragment[0]
 
-    result = envoy.run('../node_modules/.bin/phantomjs --load-images=false driver.js "' + new_url + '"', timeout=5)
+    command = 'node_modules/.bin/phantomjs --load-images=false driver.js "' + new_url + '"'
+    result = envoy.run(command, timeout=5)
 
     if result.status_code == 0:
        return result.std_out

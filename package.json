@@ -1,0 +1,7 @@
+{
+  "name": "escaped-fragment-proxy",
+  "version": "0.1.0",
+  "devDependencies": {
+    "phantomjs": "~1.9.2-4"
+  }
+}
