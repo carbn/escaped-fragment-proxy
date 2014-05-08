@@ -22,7 +22,7 @@ def serve():
     if fragment:
         new_url += '#!' + fragment[0]
 
-    command = 'node_modules/.bin/phantomjs --load-images=false driver.js "' + new_url + '"'
+    command = '/usr/lib/node_modules/phantomjs/lib/phantom/bin/phantomjs --load-images=false driver.js "' + new_url + '"'
     result = envoy.run(command, timeout=5)
 
     if result.status_code == 0:
